@@ -5,7 +5,10 @@ export default async function handler(req, res) {
 
     const headers = {
       'Content-Type': 'application/json',
-      'User-Agent': req.headers['user-agent'] || 'DiscordBot (https://vercel.com, 1.0)'
+      // SIEMPRE forzar UA limpia, no reenviar la del cliente original.
+      // Si reenviamos la UA de Apps Script ("script.google.com"),
+      // Cloudflare detecta el origen y bloquea con 40333.
+      'User-Agent': 'DiscordBot (https://github.com/ecomwinners/discord-bot-proxy, 1.0)'
     };
     if (req.headers.authorization) {
       headers.Authorization = req.headers.authorization;
